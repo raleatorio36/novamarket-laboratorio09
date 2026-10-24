@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaMarket — Lab 09</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; background: #f5f5f5; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; }
+        .card { background: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,.1); margin-bottom: 20px; }
+        label { display: block; margin: 10px 0 4px; font-weight: bold; }
+        select, input[type=submit] { padding: 8px 12px; border-radius: 4px; border: 1px solid #ccc; }
+        input[type=submit] { background: #2980b9; color: white; border: none; cursor: pointer; font-size: 15px; margin-top: 16px; }
+        input[type=submit]:hover { background: #1a6fa0; }
+        .check-group { margin: 8px 0; }
+        .badge { display: inline-block; background: #e8f4fd; color: #2980b9; border-radius: 4px; padding: 2px 8px; font-size: 13px; margin-left: 6px; }
+        table { width: 100%; border-collapse: collapse; }
+        td, th { padding: 8px 12px; border: 1px solid #ddd; text-align: left; }
+        th { background: #ecf0f1; }
+    </style>
+</head>
+<body>
+
+<h1>🛒 NovaMarket</h1>
+<p>Laboratorio 09 · Patrones estructurales · Spring Boot</p>
+
+<div class="card">
+    <h2>Pedido de demostración</h2>
+    <table>
+        <tr><th>Código</th><th>Producto</th><th>Cant.</th><th>P. Unit.</th><th>Subtotal</th></tr>
+        <tr><td>NV-1001</td><td>Mouse inalámbrico</td><td>1</td><td>S/ 45.00</td><td>S/ 45.00</td></tr>
+        <tr><td>NV-1001</td><td>Audífonos USB</td><td>1</td><td>S/ 55.00</td><td>S/ 55.00</td></tr>
+        <tr><td colspan="4"><strong>Total base</strong></td><td><strong>S/ 100.00</strong></td></tr>
+    </table>
+</div>
+
+<div class="card">
+    <h2>Configurar confirmación</h2>
+    <form action="/confirmar" method="get">
+
+        <label>Servicios opcionales <span class="badge">Decorator</span></label>
+        <div class="check-group">
+            <input type="checkbox" name="empaque" value="true" id="empaque">
+            <label for="empaque" style="display:inline">Empaque de regalo (+S/ 8.00)</label>
+        </div>
+        <div class="check-group">
+            <input type="checkbox" name="prioridad" value="true" id="prioridad">
+            <label for="prioridad" style="display:inline">Atención prioritaria (+S/ 12.00)</label>
+        </div>
+
+        <label>Proveedor de pago <span class="badge">Adapter</span></label>
+        <select name="proveedor">
+            <option value="legado">PagoLegado (sistema heredado)</option>
+            <option value="express">PagoExpress (sistema moderno)</option>
+        </select>
+
+        <label>Simulaciones de error</label>
+        <div class="check-group">
+            <input type="checkbox" name="stockCero" value="true" id="stockCero">
+            <label for="stockCero" style="display:inline">Simular inventario vacío (CP-07)</label>
+        </div>
+        <div class="check-group">
+            <input type="checkbox" name="pagoFalla" value="true" id="pagoFalla">
+            <label for="pagoFalla" style="display:inline">Simular pago rechazado (CP-06)</label>
+        </div>
+
+        <input type="submit" value="Confirmar pedido →">
+    </form>
+</div>
+
+</body>
+</html>

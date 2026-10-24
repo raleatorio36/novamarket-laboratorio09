@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado — NovaMarket</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; background: #f5f5f5; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; }
+        .card { background: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,.1); margin-bottom: 20px; }
+        .ok  { color: #27ae60; font-weight: bold; font-size: 18px; }
+        .err { color: #c0392b; font-weight: bold; font-size: 18px; }
+        .badge { display: inline-block; background: #e8f4fd; color: #2980b9; border-radius: 4px; padding: 2px 8px; font-size: 13px; margin-left: 6px; }
+        .audit { background: #f8f9fa; padding: 10px; border-left: 4px solid #3498db; margin: 6px 0; font-family: monospace; font-size: 13px; }
+        a { color: #2980b9; }
+        table { width: 100%; border-collapse: collapse; }
+        td, th { padding: 8px 12px; border: 1px solid #ddd; text-align: left; }
+        th { background: #ecf0f1; }
+    </style>
+</head>
+<body>
+
+<h1>🛒 NovaMarket — Resultado</h1>
+
+<div class="card">
+    <h2>Estado del pedido</h2>
+    <p th:if="${resultado.exitoso}" class="ok">✅ CONFIRMADO</p>
+    <p th:unless="${resultado.exitoso}" class="err">❌ RECHAZADO</p>
+    <p th:text="${resultado.mensaje}"></p>
+</div>
+
+<div class="card">
+    <h2>Detalle del pedido</h2>
+    <table>
+        <tr><th>Código</th><td th:text="${pedido.codigo}"></td></tr>
+        <tr><th>Total base</th><td th:text="'S/ ' + ${#numbers.formatDecimal(pedido.total, 1, 2)}"></td></tr>
+        <tr><th>Servicios incluidos</th><td th:text="${pedidoServicio.descripcion}"></td></tr>
+        <tr><th>Total con servicios</th><td><strong th:text="'S/ ' + ${#numbers.formatDecimal(pedidoServicio.total, 1, 2)}"></strong></td></tr>
+        <tr><th>Proveedor de pago <span class="badge">Adapter</span></th><td th:text="${proveedorUsado}"></td></tr>
+        <tr><th>Estado final</th><td th:text="${pedido.estado}"></td></tr>
+    </table>
+</div>
+
+<div class="card" th:if="${!auditoria.isEmpty()}">
+    <h2>Registro de auditoría <span class="badge">Decorator</span></h2>
+    <div th:each="registro : ${auditoria}" class="audit" th:text="${registro}"></div>
+</div>
+
+<p><a href="/">← Volver al inicio</a></p>
+
+</body>
+</html>
